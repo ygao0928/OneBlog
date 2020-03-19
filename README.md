@@ -24,7 +24,7 @@
 
 ` springboot` `mysql` `maven` ` mybaties` `springmvc` `redis` `Shiro` `springcloud` 
 
-> :smile::relaxed:这写技术是我都想用到的,慢慢写吧! :smile::relaxed:
+> :smile: :relaxed:这写技术是我都想用到的,慢慢写吧! :smile: :relaxed:
 
 
 
