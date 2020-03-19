@@ -1,0 +1,19 @@
+mybatis:
+  mapper-locations: classpath:mappers/*Mapper.xml
+  typeAliasesPackage: ltd.ygao.oneblog.pojo
+server:
+  port: 8081
+  tomcat:
+    uri-encoding: UTF-8
+    max-http-form-post-size: -1
+spring:
+  datasource:
+    password: 123456
+    url: jdbc:mysql:///oneblog?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    username: root
+configuration:
+  map-underscore-to-camel-case: true
+  cache-enabled: false
+  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+mconfig:
+  swagger-ui-open: true
