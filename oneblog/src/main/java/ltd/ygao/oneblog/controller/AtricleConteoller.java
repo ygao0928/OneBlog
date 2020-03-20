@@ -2,7 +2,9 @@ package ltd.ygao.oneblog.controller;
 
 import io.swagger.annotations.Api;
 import ltd.ygao.oneblog.pojo.Article;
+import ltd.ygao.oneblog.pojo.ArticleColumn;
 import ltd.ygao.oneblog.pojo.Tag;
+import ltd.ygao.oneblog.service.ArtColumnService;
 import ltd.ygao.oneblog.service.ArticleService;
 import ltd.ygao.oneblog.service.TagService;
 import ltd.ygao.oneblog.utils.ResponseObject;
@@ -31,6 +33,9 @@ public class AtricleConteoller {
     ArticleService articleService;
     @Autowired
     TagService tagService;
+    @Autowired
+    ArtColumnService artColumnService;
+
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseObject<Object> addart(@CookieValue("userid") String userId, String title, String htmlContent, String textContent, String tag) {
@@ -48,18 +53,18 @@ public class AtricleConteoller {
         }
         return rs;
     }
+
     @ResponseBody
-    @RequestMapping(value = "/findAllTag",method = {RequestMethod.POST})
-    public ResponseObject findAll(){
-        System.out.println("wollaile");
-        ResponseObject ro=new ResponseObject();
-       List<Tag> tagList= tagService.findAll();
-       if (tagList.size()>0){
-           ro.setData(tagList);
-       }else {
-           ro.setMoreInfo("没有数据");
-       }
-       return ro;
+    @RequestMapping(value = "/findAllColumn", method = {RequestMethod.POST})
+    public ResponseObject findArtColumnAll() {
+        ResponseObject ro = new ResponseObject();
+        List<ArticleColumn> articleColumnsList = artColumnService.findAll();
+        if (articleColumnsList.size() > 0) {
+            ro.setData(articleColumnsList);
+        } else {
+            ro.setMoreInfo("没有数据");
+        }
+        return ro;
 
     }
 }

@@ -2,20 +2,39 @@
   <div class="add-artice">
     <div class="add-artice-top">
       <el-form :rules="rules" ref="articlFrom">
-        <el-form-item label="文章标题" prop="articleName">
+        <el-form-item label="文章栏目" prop="articleName">
           <el-input class="artname-input" v-model="articlFrom.articleName" placeholder="文章主题"></el-input>
         </el-form-item>
         <el-form-item label="文章标签" prop="tagName">
-          <el-input class="tag-input" v-model="articlFrom.articleName" placeholder="文章标签">
-            <el-tag>标签一</el-tag>
-          </el-input>
+          <el-input class="tag-input" v-model="articlFrom.articleName" placeholder="文章标签"></el-input>
         </el-form-item>
       </el-form>
-      
     </div>
 
     <div class="tag-container">
-      <el-tag class="tag-span" v-for="item in tagList" :key="item.id" @click="dynamicAdd">{{item.tag}}</el-tag>
+      <el-tag
+        :key="tag"
+        v-for="tag in dynamicTags"
+        closable
+        :disable-transitions="false"
+        @close="handleClose(tag)"
+      >{{tag}}</el-tag>
+      <el-input
+        class="input-new-tag"
+        v-if="inputVisible"
+        v-model="inputValue"
+        ref="saveTagInput"
+        size="small"
+        @keyup.enter.native="handleInputConfirm"
+        @blur="handleInputConfirm"
+      ></el-input>
+      <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+      <!-- <el-tag
+        class="tag-span"
+        v-for="item in tagList"
+        :key="item.id"
+        @click="dynamicAdd"
+      >{{item.tag}}</el-tag>-->
     </div>
     <el-button type="primary" @click.native.prevent="saveArticle">保存</el-button>
     <mavon-editor
@@ -36,18 +55,20 @@ export default {
   textcont: "",
   data() {
     return {
+      dynamicTags: [],
+      inputVisible: false,
+      inputValue: "",
       articlFrom: {
         articleName: "",
-        tagName:''
+        tagName: ""
       },
       rules: {
         articleName: [
           { required: true, message: "请输入标题", trigger: "blur" }
-        ],tagName: [
-          { required: true, message: "请输入标签", trigger: "blur" }
-        ]
+        ],
+        tagName: [{ required: true, message: "请输入标签", trigger: "blur" }]
       },
-      tagList: [],
+      articleColumnsList: [],
       value: "",
 
       toolbars: {
@@ -88,7 +109,7 @@ export default {
     };
   },
   created() {
-    this.findAllTag();
+    this.findAllColumn();
   },
   methods: {
     //监听markdown变化
@@ -128,26 +149,62 @@ export default {
         console.log(resp);
       });
     },
-    findAllTag() {
-      this.$postRequest("/article/findAllTag", {}).then(resp => {
-        this.tagList = resp.data.data;
+    findAllColumn() {
+      this.$postRequest("/article/findAllColumn", {}).then(resp => {
+        this.articleColumnsList = resp.data.data;
         console.log(resp.data.data);
       });
     },
-    dynamicAdd(){
+    dynamicAdd() {},
+    handleClose(tag) {
+      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+    },
 
+    showInput() {
+      this.inputVisible = true;
+      this.$nextTick(_ => {
+        this.$refs.saveTagInput.$refs.input.focus();
+      });
+    },
+
+    handleInputConfirm() {
+      let inputValue = this.inputValue;
+      if (inputValue) {
+        this.dynamicTags.push(inputValue);
+      }
+      this.inputVisible = false;
+      this.inputValue = "";
     }
   }
 };
 </script>
 
 <style>
-.add-artice-top{
-  padding:20px;
+.el-tag + .el-tag {
+  margin-left: 10px;
 }
-.artname-input ,.tag-input{
+.button-new-tag {
+  margin-left: 10px;
+  height: 32px;
+  line-height: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.input-new-tag {
+  width: 90px;
+  margin-left: 10px;
+  vertical-align: bottom;
+}
+.add-artice-top {
+  padding-top: 20px;padding-left: 20px;
+ 
+  
+}
+
+.tag-input  {
   width: 20%;
 }
+.artname-input{width: 20%;}
 .add-artice {
   background-color: white;
   height: 100%;
@@ -157,14 +214,15 @@ export default {
   width: 60px;
 }
 .tag-container {
-  height: 40px;
+  
+  height: 20px;
   width: 40%;
   padding: 20px;
 }
 .tag-span {
   border: 1px solid #444;
   border-radius: 5px;
-  margin: 5px;cursor: pointer;
+  margin: 5px;
+  cursor: pointer;
 }
-
 </style>
