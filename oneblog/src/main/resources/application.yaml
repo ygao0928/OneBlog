@@ -17,3 +17,13 @@ configuration:
   log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 mconfig:
   swagger-ui-open: true
+jedis :
+  pool :
+    host : 34.92.39.163
+    port : 6379
+    password: Yl09281011
+    timeout: 10000
+    config :
+      maxTotal: 100
+      maxIdle: 10
+      maxWaitMillis : 100000
