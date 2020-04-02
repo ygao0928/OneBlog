@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping(value = "/admin", produces = {"application/json;charset=UTF-8"})
 @CrossOrigin
 @ResponseBody
-@Api(value = "后台", tags = "")
+@Api(value = "总后台接口", tags = "")
 public class AdminController {
     @Autowired
     UserService userService;

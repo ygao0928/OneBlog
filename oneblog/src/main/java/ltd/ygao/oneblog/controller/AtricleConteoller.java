@@ -3,7 +3,6 @@ package ltd.ygao.oneblog.controller;
 import io.swagger.annotations.Api;
 import ltd.ygao.oneblog.pojo.Article;
 import ltd.ygao.oneblog.pojo.ArticleColumn;
-import ltd.ygao.oneblog.pojo.Tag;
 import ltd.ygao.oneblog.service.ArtColumnService;
 import ltd.ygao.oneblog.service.ArticleService;
 import ltd.ygao.oneblog.service.TagService;
@@ -12,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +19,7 @@ import java.util.List;
  * @version 1.0
  * @date 2020/3/18 15:10
  */
-@Controller
+@RestController
 @RequestMapping(value = "/article", produces = {"application/json;charset=UTF-8"})
 @CrossOrigin
 @Api(value = "文章", tags = "")
@@ -57,6 +53,7 @@ public class AtricleConteoller {
     @ResponseBody
     @RequestMapping(value = "/findAllColumn", method = {RequestMethod.POST})
     public ResponseObject findArtColumnAll() {
+
         ResponseObject ro = new ResponseObject();
         List<ArticleColumn> articleColumnsList = artColumnService.findAll();
         if (articleColumnsList.size() > 0) {

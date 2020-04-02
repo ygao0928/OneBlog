@@ -1,7 +1,9 @@
 package ltd.ygao.oneblog.service;
 
+import ltd.ygao.oneblog.pojo.User;
 import ltd.ygao.oneblog.utils.ResponseObject;
-import org.apache.catalina.User;
+import org.apache.ibatis.annotations.Param;
+
 
 import java.util.List;
 
@@ -23,5 +25,18 @@ public interface UserService {
      * @return
      */
     ResponseObject checkUserByName(String userName);
+
+    /**
+     * 查
+     * @return
+     */
+    List<User> findAllUser();
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
+    Integer updateUser(User user);
 
 }

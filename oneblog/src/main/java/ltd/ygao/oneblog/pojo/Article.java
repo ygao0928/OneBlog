@@ -7,6 +7,7 @@ import lombok.Setter;
 
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -15,10 +16,8 @@ import java.util.List;
  * @version 1.0
  * @date 2020/3/18 15:20
  */
-@Getter
-
-@Setter
-public class Article {
+@Data
+public class Article implements Serializable {
     private Integer id;
     @NotNull
     private String aritcleName;
@@ -31,4 +30,5 @@ public class Article {
     private Integer creater;
     private String tagList;
     private Integer statue;
+    private List<Tag> allTag;
 }
