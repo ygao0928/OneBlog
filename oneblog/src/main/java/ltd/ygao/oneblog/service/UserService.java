@@ -1,5 +1,6 @@
 package ltd.ygao.oneblog.service;
 
+import ltd.ygao.oneblog.utils.ResponseObject;
 import org.apache.catalina.User;
 
 import java.util.List;
@@ -21,6 +22,6 @@ public interface UserService {
      * @param userName
      * @return
      */
-    List<User>  checkUserByName(String userName);
+    ResponseObject checkUserByName(String userName);
 
 }

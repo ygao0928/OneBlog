@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -19,10 +20,14 @@ import java.util.List;
 @Setter
 public class Article {
     private Integer id;
+    @NotNull
     private String aritcleName;
+    @NotNull
     private String htmlContent;
+    @NotNull
     private String textContent;
     private Date createrOn;
+    @NotNull
     private Integer creater;
     private String tagList;
     private Integer statue;

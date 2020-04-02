@@ -3,13 +3,15 @@ package ltd.ygao.oneblog.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import ltd.ygao.oneblog.pojo.User;
 import ltd.ygao.oneblog.service.UserService;
 import ltd.ygao.oneblog.utils.ResponseObject;
-import org.apache.catalina.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -32,7 +34,9 @@ public class AdminController {
     public ResponseObject<Object> adminIndex(@ApiParam(value = "用户名", required = true)
                                              @RequestParam(value = "username") String username, @ApiParam(value = "密码", required = true)
                                              @RequestParam(value = "password") String password) {
-        List<User> ul = userService.checkUserByName(username);
-        return new ResponseObject<>(ul);
+
+        ResponseObject user = userService.checkUserByName(username);
+
+        return user;
     }
 }

@@ -1,5 +1,6 @@
 package ltd.ygao.oneblog.controller;
 
+import io.swagger.annotations.Api;
 import ltd.ygao.oneblog.service.impl.UserServiceImpl;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.util.List;
  * @date 2020/3/11 23:01
  */
 @Controller
+@Api(value = "测试", tags = "")
 public class HelloController {
     @Autowired
    private UserServiceImpl userService;

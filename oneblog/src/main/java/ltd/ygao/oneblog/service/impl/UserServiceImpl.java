@@ -3,6 +3,8 @@ package ltd.ygao.oneblog.service.impl;
 
 import ltd.ygao.oneblog.mapper.UserMapper;
 import ltd.ygao.oneblog.service.UserService;
+import ltd.ygao.oneblog.utils.RedisUtils;
+import ltd.ygao.oneblog.utils.ResponseObject;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +20,12 @@ import java.util.List;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
+
+
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    RedisUtils redisUtils;
 
     /**
      * 查出所有的用户
@@ -32,9 +38,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> checkUserByName(String userName) {
-        List<User> ul = userMapper.checkUserByName(userName);
-        return ul;
+    public ResponseObject checkUserByName(String userName) {
+        ResponseObject resp = new ResponseObject();
+        if (redisUtils.get(userName) != null) {
+            System.out.println("在redis里面找到");
+            resp.setData(redisUtils.get("userName"));
+        } else {
+            System.out.println("到数据库里找");
+            List<User> ul = userMapper.checkUserByName(userName);
+            resp.setData(ul);
+            redisUtils.set(userName, ul, 10);
+        }
+        return resp;
     }
 
 

@@ -41,10 +41,11 @@ export default {
           _this.loading = false;
           if (resp.status == 200) {
             var json = resp.data;
-            console.log(json);
+            console.log(json.data[0],"数据");
             if (json.error == "Success") {
-              console.log(json.data[0].id);
-              
+
+              console.log(111);
+
               _this.$cookies.set('userid',json.data[0].id);
               _this.$router.replace({ path: "/index" });
             } else {

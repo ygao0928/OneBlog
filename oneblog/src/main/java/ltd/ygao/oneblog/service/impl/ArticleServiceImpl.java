@@ -6,6 +6,8 @@ import ltd.ygao.oneblog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.Callable;
+
 /**
  * @author Kevin
  * @version 1.0
@@ -18,6 +20,18 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Integer addArticle(Article article) {
+
         return articleMapper.addArticle(article);
     }
+}
+class testthead implements Callable {
+
+    @Override
+
+       public Object call() throws Exception {
+        return null;
+    }
+}
+class testthread extends Thread{
+
 }
