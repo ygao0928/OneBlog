@@ -13,13 +13,7 @@ import java.util.List;
  * @date 2020/3/17 10:37
  */
 public interface UserService {
-    /**
-     * 查找所有用户
-     * @return
-     */
-    List<User> findAll();
-
-    /**
+       /**
      * 检查用户名
      * @param userName
      * @return
@@ -38,5 +32,6 @@ public interface UserService {
      * @return
      */
     Integer updateUser(User user);
+    Integer insertUser(User user);
 
 }

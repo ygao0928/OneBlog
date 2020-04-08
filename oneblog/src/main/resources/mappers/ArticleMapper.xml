@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="ltd.ygao.oneblog.mapper.ArticleMapper">
-<insert id="addArticle" parameterType="ltd.ygao.oneblog.pojo.Article" keyProperty="id">
-        insert into articles(id,articeName,textcontent,htmlcontent,taglist,createOn,creater,statue)
-        values (#{id},#{aritcleName},#{textContent},#{htmlContent},#{tagList},#{createrOn},#{creater},statue)
+    <insert id="addArticle" parameterType="ltd.ygao.oneblog.pojo.Article" useGeneratedKeys="true" keyProperty="id">
+        insert into articles(articeName,textcontent,htmlcontent,taglist,createOn,creater,statue)
+        values (#{aritcleName},#{textContent},#{htmlContent},#{tagList},#{createrOn},#{creater},statue)
     </insert>
+    <update id="updateArticle" parameterType="ltd.ygao.oneblog.pojo.Article">
+UPDATE articles SET articeName=#{articeName},textcontent=#{textcontent},htmlcontent=#{htmlcontent}
+WHERE id=#{id}
+    </update>
+    <delete id="deleteArticleById">
+delete from articles where id=#{id}
+    </delete>
+    <select id="selectArticleById" resultType="ltd.ygao.oneblog.pojo.Article">
+        select * from articles where id=#{articles}
+    </select>
+    <select id="selectArticleByfromer" resultType="ltd.ygao.oneblog.pojo.Article">
+        select * from articles where creater=#{userId}
+    </select>
+    <select id="FindAllArticle" resultType="ltd.ygao.oneblog.pojo.Article">
+        select  * from  articles
+    </select>
+    <select id="selectPage" resultType="ltd.ygao.oneblog.pojo.Article">
+        SELECT
+        *
+        FROM articles
+
+    </select>
 </mapper>
 

@@ -2,10 +2,11 @@ package ltd.ygao.oneblog.service.impl;
 
 
 import ltd.ygao.oneblog.mapper.UserMapper;
+import ltd.ygao.oneblog.pojo.User;
 import ltd.ygao.oneblog.service.UserService;
 import ltd.ygao.oneblog.utils.RedisUtils;
 import ltd.ygao.oneblog.utils.ResponseObject;
-import org.apache.catalina.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,10 +33,6 @@ public class UserServiceImpl implements UserService {
      *
      * @return
      */
-    public List<User> findAll() {
-        System.out.println(userMapper.findAll());
-        return userMapper.findAll();
-    }
 
     @Override
     public ResponseObject checkUserByName(String userName) {
@@ -50,6 +47,21 @@ public class UserServiceImpl implements UserService {
             redisUtils.set(userName, ul, 10);
         }
         return resp;
+    }
+
+    @Override
+    public List<ltd.ygao.oneblog.pojo.User> findAllUser() {
+        return userMapper.findAllUser();
+    }
+
+    @Override
+    public Integer updateUser(User user) {
+        return userMapper.updateUser(user);
+    }
+
+    @Override
+    public Integer insertUser(User user) {
+        return userMapper.insertUser(user);
     }
 
 

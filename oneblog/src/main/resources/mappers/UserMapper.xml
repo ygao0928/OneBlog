@@ -5,13 +5,19 @@
         <result column="user_id" jdbcType="BIGINT" property="id"/>
         <result column="user_name" jdbcType="VARCHAR" property="userName"/>
         <result column="user_pass" jdbcType="VARCHAR" property="passWord"/>
-
     </resultMap>
-    <select id="findAll" resultMap="baseUser">
-       SELECT  * FROM user
-    </select>
+    <insert id="insertUser" parameterType="ltd.ygao.oneblog.pojo.User" useGeneratedKeys="true" keyProperty="user_id">
+        INSERT  INTO user(user_name,user_pass) VALUES (#{userName},#{passWord})
+    </insert>
+    <update id="updateUser" parameterType="ltd.ygao.oneblog.pojo.User">
+        update user
+        set  user_name=#{user_name},user_pass=#{user_pass} where user_id=#{id}
+    </update>
     <select id="checkUserByName" resultMap="baseUser">
-select * from user where user_name=#{userName}
+       select * from user where user_name=#{userName}
+    </select>
+    <select id="findAllUser" resultMap="baseUser">
+       select  * FROM user
     </select>
 </mapper>
 

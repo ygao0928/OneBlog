@@ -1,6 +1,6 @@
 package ltd.ygao.oneblog.mapper;
 
-import org.apache.catalina.User;
+import ltd.ygao.oneblog.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -16,14 +16,30 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UserMapper {
-
-    /*查询所有用户*/
-    List<User> findAll();
-
     /**
      *
      * @param userName
      * @return
      */
     List<User> checkUserByName(@Param("userName")String userName);
+
+    /**
+     *
+     * @return
+     */
+    List<User> findAllUser();
+
+    /**
+     *
+     * @param user
+     * @return
+     */
+    Integer updateUser(User user);
+
+    /**
+     *
+     * @param user
+     * @return
+     */
+    Integer insertUser(User user);
 }

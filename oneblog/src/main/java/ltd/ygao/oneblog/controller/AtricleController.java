@@ -1,11 +1,14 @@
 package ltd.ygao.oneblog.controller;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import ltd.ygao.oneblog.pojo.Article;
 import ltd.ygao.oneblog.pojo.ArticleColumn;
 import ltd.ygao.oneblog.service.ArtColumnService;
 import ltd.ygao.oneblog.service.ArticleService;
 import ltd.ygao.oneblog.service.TagService;
+import ltd.ygao.oneblog.utils.PageRequest;
+import ltd.ygao.oneblog.utils.PageResult;
 import ltd.ygao.oneblog.utils.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,9 +25,9 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/article", produces = {"application/json;charset=UTF-8"})
 @CrossOrigin
-@Api(value = "文章", tags = "")
-public class AtricleConteoller {
-
+@ResponseBody
+@Api(value = "文章管理接口")
+public class AtricleController {
     @Autowired
     ArticleService articleService;
     @Autowired
@@ -32,8 +35,8 @@ public class AtricleConteoller {
     @Autowired
     ArtColumnService artColumnService;
 
-    @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ApiOperation("新建文章接口")
     public ResponseObject<Object> addart(@CookieValue("userid") String userId, String title, String htmlContent, String textContent, String tag) {
         Article at = new Article();
         at.setAritcleName(title);
@@ -50,10 +53,9 @@ public class AtricleConteoller {
         return rs;
     }
 
-    @ResponseBody
     @RequestMapping(value = "/findAllColumn", method = {RequestMethod.POST})
+    @ApiOperation("查所有栏目接口")
     public ResponseObject findArtColumnAll() {
-
         ResponseObject ro = new ResponseObject();
         List<ArticleColumn> articleColumnsList = artColumnService.findAll();
         if (articleColumnsList.size() > 0) {
@@ -62,6 +64,20 @@ public class AtricleConteoller {
             ro.setMoreInfo("没有数据");
         }
         return ro;
+    }
 
+    @RequestMapping(value = "/findAllArticle", method = {RequestMethod.POST})
+    @ApiOperation("查所有文章接口")
+    public ResponseObject findAllArticles() {
+        List<Article> atlist = articleService.FindAllArticle();
+        return new ResponseObject(atlist);
+    }
+
+    @PostMapping(value = "findArticleByPage")
+    @ApiOperation("分页查询文章的接口")
+    public ResponseObject findPage(@RequestBody PageRequest pageRequest) {
+        System.out.println(articleService.findPage(pageRequest));
+        PageResult pageInfo = articleService.findPage(pageRequest);
+        return new ResponseObject<>(pageInfo);
     }
 }

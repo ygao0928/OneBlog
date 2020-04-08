@@ -11,19 +11,40 @@ spring:
     password: 123456
     url: jdbc:mysql:///oneblog?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
     username: root
-configuration:
+    ## redis
+  redis:
+    host: 34.92.39.163
+    port: 6379
+    password: Yl09281011
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+    timeout: 30000
+  configuration:
   map-underscore-to-camel-case: true
   cache-enabled: false
   log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  ## swagger
 mconfig:
   swagger-ui-open: true
-jedis :
-  pool :
-    host : 192.168.0.102
-    port : 6379
-    ##password: Yl09281011
-    timeout: 10000
-    config :
-      maxTotal: 100
-      maxIdle: 10
-      maxWaitMillis : 100000
+#jedis :
+#  pool :
+#   host: 34.92.39.163
+#    port: 6379
+#    password: Yl09281011
+#    timeout: 10000
+#    config :
+#      maxTotal: 100
+#      maxIdle: 10
+logging:
+  level:
+    ltd.ygao.oneblog.mapper: debug
+#      maxWaitMillis : 100000
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

@@ -2,7 +2,10 @@ package ltd.ygao.oneblog.mapper;
 
 import ltd.ygao.oneblog.pojo.Article;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author Kevin
@@ -17,4 +20,16 @@ public interface ArticleMapper {
      * @return
      */
     Integer addArticle(Article article);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    Integer deleteArticleById(@Param("artId")int id);
+    List<Article> selectArticleById(@Param("artId") int artId);
+    List<Article> selectArticleByfromer(@Param("userId")int userId);
+    List<Article> FindAllArticle();
+    List<Article> selectPage();
+    Integer updateArticle(Article article);
 }
